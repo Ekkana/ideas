@@ -4,17 +4,12 @@ import { prisma } from '../utils/prisma';
 
 export const appRouter = trpc
   .router()
-  .query('hello', {
-    input: z
-      .object({
-        text: z.string().nullable().optional(),
-      })
-      .nullish(),
-    resolve({ input }) {
+  .query('ideas', {
+    async resolve() {
       return {
-        greeting: `hello ${input?.text ?? 'world'}`,
-      };
-    },
+        items: await prisma.idea.findMany({})
+      }
+    }
   });
 
 // export type definition of API
