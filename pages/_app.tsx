@@ -1,7 +1,7 @@
-import '../styles/globals.css'
-import { withTRPC } from '@trpc/next';
-import { AppType } from 'next/dist/shared/lib/utils';
-import type { AppRouter } from '../backend/router';
+import "../styles/globals.css";
+import { withTRPC } from "@trpc/next";
+import { AppType } from "next/dist/shared/lib/utils";
+import type { AppRouter } from "../backend/router";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
@@ -13,7 +13,7 @@ export default withTRPC<AppRouter>({
      * If you want to use SSR, you need to use the server's full URL
      * @link https://trpc.io/docs/ssr
      */
-    const url = 'http://localhost:3000/api/trpc';
+    const url = "http://localhost:3000/api/trpc";
 
     return {
       url,
