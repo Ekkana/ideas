@@ -1,8 +1,10 @@
-import type { NextPage } from "next";
+import React from "react";
 import { trpc } from "@/backend/utils/trpc";
 import Draggable from "react-draggable";
 
 import { CloseButton, InputIdea } from "@/components";
+
+import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   const { data, isLoading, refetch } = trpc.useQuery(["ideas"]);
@@ -21,11 +23,14 @@ const Home: NextPage = () => {
     deleteMutation.mutate({ id });
   };
 
+  const nodeRef = React.useRef(null);
+
   const renderItems = () => {
     return data?.items.map(({ id, title, description }, index) => (
       <div key={id}>
-        <Draggable>
+        <Draggable nodeRef={nodeRef}>
           <div
+            ref={nodeRef}
             className={`max-w-sm p-8 shadow-card-shadow rounded-md cursor-move ${
               colorLookup[index % colorLookup.length]
             }`}

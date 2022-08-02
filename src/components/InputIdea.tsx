@@ -11,16 +11,15 @@ const InputIdea = ({ refetchList }: { refetchList: () => void }) => {
     setDescription("");
   };
 
-  const { isLoading, refetch } = trpc.useQuery(
-    ["addIdea", { title, description }],
-    { enabled: false, onSuccess: handleAddSuccess }
-  );
+  const addIdeaMutation = trpc.useMutation(["addIdea"], {
+    onSuccess: handleAddSuccess,
+  });
 
   const handleAdd = () => {
-    refetch();
+    addIdeaMutation.mutate({ title, description });
   };
 
-  if (isLoading) {
+  if (addIdeaMutation.isLoading) {
     return <div>Loading...</div>;
   }
 

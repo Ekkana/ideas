@@ -11,7 +11,7 @@ export const appRouter = trpc
       };
     },
   })
-  .query("addIdea", {
+  .mutation("addIdea", {
     input: z.object({
       title: z.string().min(2),
       description: z.string().nullable(),
