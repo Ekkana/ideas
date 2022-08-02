@@ -23,14 +23,14 @@ const Home: NextPage = () => {
     deleteMutation.mutate({ id });
   };
 
-  const nodeRef = React.useRef(null);
+  const draggableRef = React.useRef(null);
 
   const renderItems = () => {
     return data?.items.map(({ id, title, description }, index) => (
       <div key={id}>
-        <Draggable nodeRef={nodeRef}>
+        <Draggable nodeRef={draggableRef}>
           <div
-            ref={nodeRef}
+            ref={draggableRef}
             className={`max-w-sm p-8 shadow-card-shadow rounded-md cursor-move ${
               colorLookup[index % colorLookup.length]
             }`}
