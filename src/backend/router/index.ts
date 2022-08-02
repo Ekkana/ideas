@@ -22,6 +22,17 @@ export const appRouter = trpc
       });
       return idea;
     },
+  })
+  .mutation("deleteIdea", {
+    input: z.object({
+      id: z.number(),
+    }),
+    async resolve({ input: { id } }) {
+      const idea = await prisma.idea.delete({
+        where: { id },
+      });
+      return idea;
+    },
   });
 
 // export type definition of API

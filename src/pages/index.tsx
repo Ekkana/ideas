@@ -2,10 +2,13 @@ import type { NextPage } from "next";
 import { trpc } from "@/backend/utils/trpc";
 import Draggable from "react-draggable";
 
-import InputIdea from "@/components/InputIdea";
+import { CloseButton, InputIdea } from "@/components";
 
 const Home: NextPage = () => {
   const { data, isLoading, refetch } = trpc.useQuery(["ideas"]);
+  const deleteMutation = trpc.useMutation(["deleteIdea"], {
+    onSuccess: () => refetch(),
+  });
 
   const colorLookup = [
     "bg-card-blue",
@@ -13,6 +16,10 @@ const Home: NextPage = () => {
     "bg-card-pink",
     "bg-card-violet",
   ];
+
+  const handleDeleteCard = (id: number) => {
+    deleteMutation.mutate({ id });
+  };
 
   const renderItems = () => {
     return data?.items.map(({ id, title, description }, index) => (
@@ -27,6 +34,7 @@ const Home: NextPage = () => {
               <h2 className="text-gray-800 text-3xl font-semibold">{title}</h2>
               <p className="mt-2 text-gray-600">{description}</p>
             </div>
+            <CloseButton handleClick={() => handleDeleteCard(id)} />
           </div>
         </Draggable>
       </div>
